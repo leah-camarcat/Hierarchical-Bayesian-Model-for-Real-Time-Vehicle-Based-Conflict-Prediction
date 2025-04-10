@@ -325,7 +325,7 @@ if __name__ == "__main__":
 
     video_paths = "raw_data/"
     calibration_folder = "raw_data/calibration_images"  # Replace with your folder path
-    output_csv = "vehicle_HGVpercentage_testing.csv"
+    output_csv = "vehicle_tracking_results_all_2024_egoveh3.csv"
 
     main(video_paths, filenames, conflictTimesVideo, calibration_folder, output_csv)
 
