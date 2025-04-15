@@ -246,8 +246,8 @@ class GPDModel_veh(ModelBuilder):
             y_data = pm.Data("y_data", y_values)
             
             # hyperpriors
-            xi = pm.TruncatedNormal("xi", mu = 0, sigma = 0.5, lower=-0.45, upper=0.45)
-            beta_phi = pm.Normal("beta_phi", mu = 0, sigma = 1, shape = 3)
+            xi = pm.TruncatedNormal("xi", mu = 0, sigma = 0.5, lower=-1, upper=1)
+            beta_phi = pm.Normal("beta_phi", mu = 0, sigma = 10, shape = 3)
             eps_phi_j = pm.Normal("eps_phi_j", mu = 0, sigma = 1)
             ti = pm.Normal("ti", mu = 0, sigma = 1)
             
@@ -312,7 +312,7 @@ class GPDModel_veh(ModelBuilder):
             "draws": 50_000,
             "tune": 10_000,
             "chains": 4,
-            "target_accept": 0.95,
+            "target_accept": 0.9,
             "nuts_sampler": "blackjax",
             # "nuts": {"chain_method": "vectorized", "progressbar": False},
             "idata_kwargs":{"log_likelihood": True}
@@ -391,9 +391,9 @@ class GPDModel_traff(ModelBuilder):
             y_data = pm.Data("y_data", y_values)
             
             # hyperpriors
-            xi = pm.TruncatedNormal("xi", mu = 0, sigma = 0.5, lower = -0.45, upper = 0.45)
-            beta_phi = pm.Normal("beta_phi", mu = 0, sigma = 1, shape = 3)
-            gamma_phi = pm.Normal("gamma_phi", mu = 0, sigma = 1, shape = 3)
+            xi = pm.TruncatedNormal("xi", mu = 0, sigma = 1, lower = -0.62, upper = 0.62)
+            beta_phi = pm.Normal("beta_phi", mu = 0, sigma = 10, shape = 3)
+            gamma_phi = pm.Normal("gamma_phi", mu = 0, sigma = 10, shape = 3)
             eps_phi_j = pm.Normal("eps_phi_j", mu = 0, sigma = 1)
             ti = pm.Normal("ti", mu = 0, sigma = 1)
             
@@ -462,7 +462,7 @@ class GPDModel_traff(ModelBuilder):
             "draws": 50_000,
             "tune": 20_000,
             "chains": 4,
-            "target_accept": 0.9,
+            "target_accept": 0.95,
             "nuts_sampler": "blackjax", 
             # "nuts": {"chain_method": "vectorized", "progressbar": False},
             "idata_kwargs":{"log_likelihood": True}
@@ -544,12 +544,12 @@ class GPDModel_pp(ModelBuilder):
             roadseg_idx = pm.Data("roadseg_idx", X_values[:,-1].astype(int), dims="obs_id")
 
             # hyperpriors
-            xi = pm.TruncatedNormal("xi", mu = 0, sigma = 1, lower=-0.4, upper=0.4)
-            beta_phi = pm.Normal("beta_phi", mu = 0, sigma = 1, shape = 4)
-            alpha_phi = pm.Normal("alpha_phi", mu = 0, sigma = 1, shape = 2)
-            gamma_phi = pm.Normal("gamma_phi", mu = 0, sigma = 1, shape=len(np.unique(X_values[:,-1].astype(int))))
-            gamma_phi2 = pm.Normal("gamma_phi2", mu = 0, sigma = 1, shape=len(np.unique(X_values[:,-1].astype(int))))
-            gamma_phi3 = pm.Normal("gamma_phi3", mu = 0, sigma = 1)
+            xi = pm.TruncatedNormal("xi", mu = 0, sigma = 1, lower=-0.6, upper=0.6)
+            beta_phi = pm.Normal("beta_phi", mu = 0, sigma = 10, shape = 4)
+            alpha_phi = pm.Normal("alpha_phi", mu = 0, sigma = 10, shape = 2)
+            gamma_phi = pm.Normal("gamma_phi", mu = 0, sigma = 10, shape=len(np.unique(X_values[:,-1].astype(int))))
+            gamma_phi2 = pm.Normal("gamma_phi2", mu = 0, sigma = 10, shape=len(np.unique(X_values[:,-1].astype(int))))
+            gamma_phi3 = pm.Normal("gamma_phi3", mu = 0, sigma = 10)
             eps_phi_j = pm.Normal("eps_phi_j", mu = 0, sigma = 1)
             ti = pm.Normal("ti", mu = 0, sigma = 1)
             
